@@ -2,7 +2,7 @@
 
 input=read.csv('precip_all.csv')
 
-input2=subset(input,input$STNM=='Telangana')
+input2=subset(input,input$STNM=='Punjab')
 
 input3=as.character(input2$ANN)
 input3=as.numeric(input3)
@@ -15,11 +15,11 @@ precip=precip[1:50]
 
 recharge_coeff=1
 
-porosity=0.25
+porosity=0.5
 
-effort=0.4
+effort=0.02
 
-aquifer_thickness=15 #meters
+aquifer_thickness=100 #meters
 
 n = 0
 
@@ -39,12 +39,12 @@ loss=vector()
 recharge=vector()
 
 pumping=vector()
-pumping[1]=1.5
+pumping[1]=1
 
 for (i in 1:length(precip)){
   recharge[i]=recharge_coeff*precip[i]
   if(i>1){
-  pumping[i]=effort*porosity*(aquifer_thickness-drawdown[i])
+    pumping[i]=effort*porosity*(aquifer_thickness-drawdown[i])
   }
   loss[i]=n*(1-effort)*storage[i]
   
